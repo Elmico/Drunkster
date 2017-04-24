@@ -10,7 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JFrame;
@@ -43,59 +47,76 @@ public class DrunksterUI extends javax.swing.JFrame {
         
         initComponents();
          
-        listMyBooze.setSelectionModel(new DefaultListSelectionModel() { // rakennetaan oma selectionModel jList tyypille, joka tukee toggle valintaa.
-            private static final long serialVersionUID = 1L;
+        /*--------------------------rakennetaan oma selectionModel jList tyypille, joka tukee toggle valintaa.--------------------------*/
+                                                                                                                                        //
+        listMyBooze.setSelectionModel(new DefaultListSelectionModel() {                                                                 //
+            private static final long serialVersionUID = 1L;                                                                            //
+                                                                                                                                        //
+            boolean gestureStarted = false;                                                                                             //
+                                                                                                                                        //
+            @Override                                                                                                                   //
+            public void setSelectionInterval(int index0, int index1) {                                                                  //
+                if(!gestureStarted){                                                                                                    //
+                    if (isSelectedIndex(index0)) {                                                                                      //
+                        super.removeSelectionInterval(index0, index1);                                                                  //
+                    } else {                                                                                                            //
+                        super.addSelectionInterval(index0, index1);                                                                     //
+                    }                                                                                                                   //
+                }                                                                                                                       //
+                gestureStarted = true;                                                                                                  //
+            }                                                                                                                           //
+                                                                                                                                        //
+            @Override                                                                                                                   //
+            public void setValueIsAdjusting(boolean isAdjusting) {                                                                      //
+                if (isAdjusting == false) {                                                                                             //
+                    gestureStarted = false;                                                                                             //
+                }                                                                                                                       //
+            }                                                                                                                           //
+        });                                                                                                                             //
+        /*-------------------------Asetetaan default modelit ja kuuntelija valinnan muutoksen seuraamiseksi-----------------------------*/
+                                                                                                                                        //
+        DefaultListModel dlm1 = new DefaultListModel();                                                                                 //
+        DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
+                                                                                                                                        //
+        listMyBooze.setModel(dlm1);                                                                                                     //
+        selectedBoozes.setModel(dlm2);                                                                                                  //
+                                                                                                                                        //
+        ListSelectionModel listSelectionModel = listMyBooze.getSelectionModel();                                                        //   
+        listSelectionModel.addListSelectionListener(new ListSelectionHandler(virhe, listMyBooze, dlm2));                                //
+                                                                                                                                        //
+        List mylist = listMyBooze.getSelectedValuesList();                                                                              //
+                                                                                                                                        //
+        /*------------------------------------Täytetään JLIST testidatalla tiedostosta--------------------------------------------------*/
+                                                                                                                                        //
+        /*Path path = Paths.get("testi.txt");                                                                                           //
+        try{                                                                                                                            //   
+            mylist = Files.readAllLines(path, StandardCharsets.UTF_8);                                                                  //
+        } catch (Exception e){                                                                                                          //
+            virhe.setText(e.toString());                                                                                                //
+        }                                                                                                                               //
+                                                                                                                                        //
+        if(mylist.isEmpty()){                                                                                                           //
+            virhe.setText("mylist on tyhjä!");                                                                                          //
+        }                                                                                                                               //
+        for(int i = 0; i < mylist.size(); i++){                                                                                         //
+            dlm1.addElement(mylist.get(i));                                                                                             //
+        }*/                                                                                                                             //
+        /*------------------------------------------------------------------------------------------------------------------------------*/
 
-            boolean gestureStarted = false;
-
-            @Override
-            public void setSelectionInterval(int index0, int index1) {
-                if(!gestureStarted){
-                    if (isSelectedIndex(index0)) {
-                        super.removeSelectionInterval(index0, index1);
-                    } else {
-                        super.addSelectionInterval(index0, index1);
-                    }
-                }
-                gestureStarted = true;
+        DB db = new DB(virhe);
+        ResultSet rs = db.päivitäAinekset(virhe);
+        
+/*        try {
+            while (rs.next()) {
+                String nimi = rs.getString("nimi");
+                String sotu = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
+                dlm1.addElement(nimi); 
             }
-
-            @Override
-            public void setValueIsAdjusting(boolean isAdjusting) {
-                if (isAdjusting == false) {
-                    gestureStarted = false;
-                }
-            }
-        });        
-        
-        DefaultListModel dlm1 = new DefaultListModel();
-        DefaultListModel dlm2 = new DefaultListModel();
-        
-        listMyBooze.setModel(dlm1);
-        selectedBoozes.setModel(dlm2);
-        
-        ListSelectionModel listSelectionModel = listMyBooze.getSelectionModel();
-        listSelectionModel.addListSelectionListener(
-            new ListSelectionHandler(virhe, listMyBooze, dlm2));
-          
-        List mylist = listMyBooze.getSelectedValuesList();
-        List mylist2;
-        
-        Path path = Paths.get("testi.txt");
-        try{
-            mylist = Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (Exception e){
-            virhe.setText(e.toString());
-        }
-        
-        if(mylist.isEmpty()){
-            virhe.setText("mylist on tyhjä!"); 
-        }
-        for(int i = 0; i < mylist.size(); i++){
-            dlm1.addElement(mylist.get(i));
-        }           
+        } catch (SQLException ex) {
+            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
-
+        
     public void valueChanged(ListSelectionEvent e) {
         ListSelectionModel lsm = (ListSelectionModel)e.getSource();
     }
@@ -183,12 +204,14 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2)
@@ -209,7 +232,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,6 +247,13 @@ public class DrunksterUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txtfieldAddBooze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddBooze)
@@ -232,21 +262,14 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonMuokkaaDrinkkeja))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane1))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(virhe)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                        .addComponent(jButtonMuokkaaDrinkkeja)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(virhe)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
