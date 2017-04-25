@@ -20,7 +20,7 @@ import javax.swing.JLabel;
  */
 public class DB {
     
-	public static final String MYSQL_URL = "mysql.labranet.jamk.fi";
+	public static final String MYSQL_URL = "jdbc:mysql://mysql.labranet.jamk.fi";
 	public static final String MYSQL_KAYTTAJA = "H8827";
 	public static final String MYSQL_SALASANA = "ZVCt2kgTPNfvLdKH89T4RenbT0yA4VmH";
 	public static final String MYSQL_AJURI = "com.mysql.jdbc.Driver";
@@ -50,18 +50,20 @@ public class DB {
         public ResultSet päivitäAinekset(JLabel virhe){
             Connection conn = luoYhteys(virhe);
             
-            if(conn == null){
-                //virhe.setText("conn on null"); 
+            if(conn != null){
+                virhe.setText("conn on null"); 
             }
             
-            /*try {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM ainekset;");
+            try {
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("SELECT * FROM ainekset;");
                 rs = pstmt.executeQuery();
                 conn.close();
             } catch (SQLException ex) {
                 virhe.setText(ex.toString()); 
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-            } */
+            } 
             return rs; 
         }
         

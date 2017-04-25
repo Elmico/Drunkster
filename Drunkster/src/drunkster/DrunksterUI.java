@@ -106,7 +106,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         DB db = new DB(virhe);
         ResultSet rs = db.päivitäAinekset(virhe);
         
-/*        try {
+        try {
             while (rs.next()) {
                 String nimi = rs.getString("nimi");
                 String sotu = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
@@ -114,7 +114,7 @@ public class DrunksterUI extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
         
     public void valueChanged(ListSelectionEvent e) {

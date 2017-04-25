@@ -24,7 +24,7 @@ class ListSelectionHandler implements ListSelectionListener {
     JList listBooze;
     
     ListSelectionHandler(JLabel virhe, JList listBooze, DefaultListModel dlm){
-        virhe.setText("event listeneri ampuu");
+       // virhe.setText("event listeneri ampuu");
         this.dlm = dlm;
         this.listBooze = listBooze;
     }
