@@ -26,7 +26,8 @@ public class DB {
 	public static final String MYSQL_AJURI = "com.mysql.jdbc.Driver";
         
          ResultSet rs = null;
-
+         public Connection conn = null;
+         
 	// privaatti konstruktori, ei voi kutsua ulkopuolelta
 	DB(JLabel virhe) {
            /* try {
@@ -36,22 +37,21 @@ public class DB {
             }*/
 	}
 
-	private Connection luoYhteys(JLabel virhe) {
-		Connection yhteys = null;
-		try {
-                    Class.forName(MYSQL_AJURI);
-                    yhteys = DriverManager.getConnection(MYSQL_URL, MYSQL_KAYTTAJA, MYSQL_SALASANA);
-		} catch (Exception e) {
-                    virhe.setText(e.toString()); 
-		}
-		return yhteys;
+	private void luoYhteys(JLabel virhe) {
+            conn = null;
+            try {
+                Class.forName(MYSQL_AJURI);
+                conn = DriverManager.getConnection(MYSQL_URL, MYSQL_KAYTTAJA, MYSQL_SALASANA);
+            } catch (Exception e) {
+                virhe.setText(e.toString()); 
+            }
 	}
     
         public ResultSet päivitäAinekset(JLabel virhe){
-            Connection conn = luoYhteys(virhe);
+            luoYhteys(virhe);
             
             if(conn != null){
-                virhe.setText("conn on null"); 
+                //virhe.setText("conn on null"); 
             }
             
             try {
@@ -59,7 +59,7 @@ public class DB {
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("SELECT * FROM ainekset;");
                 rs = pstmt.executeQuery();
-                conn.close();
+                //conn.close();
             } catch (SQLException ex) {
                 virhe.setText(ex.toString()); 
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,11 +68,18 @@ public class DB {
         }
         
         public ResultSet päivitäDrinkit(JLabel virhe){
-            Connection conn = luoYhteys(virhe);
+            luoYhteys(virhe);
             try {
-                PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM drinkit;");
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("SELECT name FROM drinkit WHERE "
+                                                + "aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? AND"
+                                                + "aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? AND"
+                                                + "aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null AND"
+                                                + "aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null AND"
+                                                + "aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null;");
                 rs = pstmt.executeQuery();
-                conn.close();
+                //conn.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -80,7 +87,7 @@ public class DB {
         }
         
         public void tallennaUusiAines(JLabel virhe, String nimi, String tyyppi){
-             Connection conn = luoYhteys(virhe);
+            luoYhteys(virhe);
             try {
                 PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi, tyyppi) VALUES (?,?);");
                 pstmt.setString(1, nimi);

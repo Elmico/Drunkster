@@ -37,7 +37,8 @@ aines1 varchar(30) not null,
 aines2 varchar(30) not null,
 aines3 varchar(30) null,
 aines4 varchar(30) null,
-aines5 varchar(30) null);
+aines5 varchar(30) null,
+kuvaus varchar(500) not null);
 */
 public class DrunksterUI extends javax.swing.JFrame {
 
@@ -77,14 +78,16 @@ public class DrunksterUI extends javax.swing.JFrame {
                                                                                                                                         //
         DefaultListModel dlm1 = new DefaultListModel();                                                                                 //
         DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
+        DefaultListModel dlm3 = new DefaultListModel();                                                                                 //
                                                                                                                                         //
         listMyBooze.setModel(dlm1);                                                                                                     //
         selectedBoozes.setModel(dlm2);                                                                                                  //
+        selectedDrinks.setModel(dlm3);                                                                                                  //
                                                                                                                                         //
         ListSelectionModel listSelectionModel = listMyBooze.getSelectionModel();                                                        //   
         listSelectionModel.addListSelectionListener(new ListSelectionHandler(virhe, listMyBooze, dlm2));                                //
                                                                                                                                         //
-        List mylist = listMyBooze.getSelectedValuesList();                                                                              //
+        //List mylist = listMyBooze.getSelectedValuesList();                                                                            //
                                                                                                                                         //
         /*------------------------------------Täytetään JLIST testidatalla tiedostosta--------------------------------------------------*/
                                                                                                                                         //
@@ -102,20 +105,41 @@ public class DrunksterUI extends javax.swing.JFrame {
             dlm1.addElement(mylist.get(i));                                                                                             //
         }*/                                                                                                                             //
         /*------------------------------------------------------------------------------------------------------------------------------*/
-
+        
+        labelAines1.setText("");
+        labelAines2.setText("");
+        labelAines3.setText("");
+        labelAines4.setText("");
+        labelAines5.setText("");
+        
         DB db = new DB(virhe);
         ResultSet rs = db.päivitäAinekset(virhe);
         
         try {
             while (rs.next()) {
                 String nimi = rs.getString("nimi");
-                String sotu = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
+                String tyyppi = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
                 dlm1.addElement(nimi); 
             }
+            db.conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ResultSet rs2 = db.päivitäDrinkit(virhe);
+    
+        try {
+            while (rs2.next()) {
+                String nimi = rs2.getString("nimi");      
+                dlm3.addElement(nimi); 
+            }
+            db.conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
         
     public void valueChanged(ListSelectionEvent e) {
         ListSelectionModel lsm = (ListSelectionModel)e.getSource();
@@ -144,19 +168,29 @@ public class DrunksterUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnRemoveBooze = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        selectedBoozes1 = new javax.swing.JList<>();
+        selectedDrinks = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButtonMuokkaaDrinkkeja = new javax.swing.JButton();
+        labelAines1 = new javax.swing.JLabel();
+        labelAines2 = new javax.swing.JLabel();
+        labelAines3 = new javax.swing.JLabel();
+        labelAines4 = new javax.swing.JLabel();
+        labelAines5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Welcome to Drunkster!");
 
-        btnAddBooze.setText("Lisää alkoholi");
+        btnAddBooze.setText("Lisää aines");
+        btnAddBooze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBoozeActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Hae drinkit");
 
@@ -172,9 +206,9 @@ public class DrunksterUI extends javax.swing.JFrame {
 
         jLabel4.setText("Kaapista löytyvät");
 
-        btnRemoveBooze.setText("Poista alkoholi");
+        btnRemoveBooze.setText("Poista aines");
 
-        jScrollPane3.setViewportView(selectedBoozes1);
+        jScrollPane3.setViewportView(selectedDrinks);
 
         jLabel5.setText("Mahdolliset drinkit");
 
@@ -189,6 +223,16 @@ public class DrunksterUI extends javax.swing.JFrame {
             }
         });
 
+        labelAines1.setText("jLabel9");
+
+        labelAines2.setText("jLabel9");
+
+        labelAines3.setText("jLabel9");
+
+        labelAines4.setText("jLabel9");
+
+        labelAines5.setText("jLabel9");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,10 +240,26 @@ public class DrunksterUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(virhe)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labelAines1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(labelAines2))
+                                    .addComponent(jLabel6)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -220,18 +280,13 @@ public class DrunksterUI extends javax.swing.JFrame {
                                     .addComponent(btnRemoveBooze, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonMuokkaaDrinkkeja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(virhe)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)))))
+                                .addComponent(labelAines3)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelAines4)
+                                .addGap(26, 26, 26)
+                                .addComponent(labelAines5)))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -246,13 +301,9 @@ public class DrunksterUI extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtfieldAddBooze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -262,14 +313,24 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonMuokkaaDrinkkeja)))
+                        .addComponent(jButtonMuokkaaDrinkkeja))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelAines1)
+                    .addComponent(labelAines2)
+                    .addComponent(labelAines3)
+                    .addComponent(labelAines4)
+                    .addComponent(labelAines5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(virhe)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -279,6 +340,10 @@ public class DrunksterUI extends javax.swing.JFrame {
         this.setVisible(false);
         drinkkiFrame.setVisible(true);
     }//GEN-LAST:event_jButtonMuokkaaDrinkkejaActionPerformed
+
+    private void btnAddBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoozeActionPerformed
+        
+    }//GEN-LAST:event_btnAddBoozeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,9 +367,14 @@ public class DrunksterUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelAines1;
+    private javax.swing.JLabel labelAines2;
+    private javax.swing.JLabel labelAines3;
+    private javax.swing.JLabel labelAines4;
+    private javax.swing.JLabel labelAines5;
     private javax.swing.JList<String> listMyBooze;
     private javax.swing.JList<String> selectedBoozes;
-    private javax.swing.JList<String> selectedBoozes1;
+    private javax.swing.JList<String> selectedDrinks;
     private javax.swing.JTextField txtfieldAddBooze;
     private javax.swing.JLabel virhe;
     // End of variables declaration//GEN-END:variables
