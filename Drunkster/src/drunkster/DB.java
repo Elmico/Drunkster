@@ -123,8 +123,24 @@ public class DB {
             }
         }
        
-        public void tallennaUusiDrinkki(JLabel virhe, String nimi){
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi, int aines1, int aines2, int aines3, int aines4, int aines5, String kuvaus){
             luoYhteys(virhe);
+             try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("INSERT INTO drinkit(nimi, aines1, aines2, aines3, aines4, aines5, kuvaus) VALUES (?,?,?,?,?,?,?);");
+                pstmt.setString(1, nimi);
+                pstmt.setInt(2, aines1);
+                pstmt.setInt(3, aines2);
+                pstmt.setInt(4, aines3);
+                pstmt.setInt(5, aines4);
+                pstmt.setInt(6, aines5);
+                pstmt.setString(7, kuvaus);
+                pstmt.executeUpdate();
+                conn.close();
+            } catch (SQLException ex) {
+                virhe.setText(ex.toString());
+            }
            
         }
        
@@ -143,6 +159,5 @@ public class DB {
             }
         }
        
-        public void poistaDrinkki(){
-        }
+        
 }

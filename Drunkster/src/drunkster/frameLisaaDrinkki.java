@@ -188,12 +188,13 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPeruutaActionPerformed
 
     private void btnlisääDrinkkiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlisääDrinkkiActionPerformed
-         String nimi = txtfieldLisääDrinkki.getText();       
+         String nimi = txtfieldLisääDrinkki.getText(); 
+         String kuvaus = txtareaKuvaus.getText();
          int lennimi = nimi.length();  
         
             if (lennimi>0){  
                 try{
-                    db.tallennaUusiDrinkki(virhe,nimi);
+                    //db.tallennaUusiDrinkki(virhe,nimi,aines1,aines2,aines3,aines4,aines5,kuvaus);
                     db.conn.close();
                 }
                 catch(Exception e){
