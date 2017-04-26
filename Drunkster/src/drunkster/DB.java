@@ -76,13 +76,12 @@ public class DB {
                     }
                     //db.conn.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+                    virhe.setText(ex.toString());
                 }
                
                 //conn.close();
             } catch (SQLException ex) {
                 virhe.setText(ex.toString());
-                Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             } 
             return ainesList;
         }
@@ -93,7 +92,7 @@ public class DB {
             List<Drinkki> drinkkiList = new ArrayList<Drinkki>();
             
             //virhe.setText("Testi");
-             virhe.setText("Selected = " + selected);
+            //virhe.setText("Selected = " + selected);
             
             try {
                 
@@ -101,105 +100,103 @@ public class DB {
                 pstmt.executeQuery();
                 
                 if(selected == 5){
-                    
-                    for(int myint : IDlista){
-                         virhe.setText(Integer.toString(myint));
-                    }
-                    
-                    pstmt = conn.prepareStatement("SELECT nimi FROM drinkit WHERE "
+                                   
+                    pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                     
-                    pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(6, IDlista.get(0));  pstmt.setInt(11, IDlista.get(0)); pstmt.setInt(16, IDlista.get(0)); pstmt.setInt(21, IDlista.get(0));
-                    pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(7, IDlista.get(1));  pstmt.setInt(12, IDlista.get(1)); pstmt.setInt(17, IDlista.get(1)); pstmt.setInt(22, IDlista.get(1));
-                    pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(8, IDlista.get(2));  pstmt.setInt(13, IDlista.get(2)); pstmt.setInt(18, IDlista.get(2)); pstmt.setInt(23, IDlista.get(2));
-                    pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(9, IDlista.get(3));  pstmt.setInt(14, IDlista.get(3)); pstmt.setInt(19, IDlista.get(3)); pstmt.setInt(24, IDlista.get(3));
-                    pstmt.setInt(5, IDlista.get(4)); pstmt.setInt(10, IDlista.get(4)); pstmt.setInt(15, IDlista.get(4)); pstmt.setInt(20, IDlista.get(4)); pstmt.setInt(25, IDlista.get(4));
+                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(6, IDlista.get(0));  pstmt.setInt(11, IDlista.get(0)); pstmt.setInt(16, IDlista.get(0)); pstmt.setInt(21, IDlista.get(0));
+                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(7, IDlista.get(1));  pstmt.setInt(12, IDlista.get(1)); pstmt.setInt(17, IDlista.get(1)); pstmt.setInt(22, IDlista.get(1));
+                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(8, IDlista.get(2));  pstmt.setInt(13, IDlista.get(2)); pstmt.setInt(18, IDlista.get(2)); pstmt.setInt(23, IDlista.get(2));
+                    //pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(9, IDlista.get(3));  pstmt.setInt(14, IDlista.get(3)); pstmt.setInt(19, IDlista.get(3)); pstmt.setInt(24, IDlista.get(3));
+                    //pstmt.setInt(5, IDlista.get(4)); pstmt.setInt(10, IDlista.get(4)); pstmt.setInt(15, IDlista.get(4)); pstmt.setInt(20, IDlista.get(4)); pstmt.setInt(25, IDlista.get(4));
+                    
+                    for(int i = 1; i <= 25; i+=5){
+                        pstmt.setInt(i, IDlista.get(0));
+                        pstmt.setInt(i+1, IDlista.get(1));
+                        pstmt.setInt(i+2, IDlista.get(2));
+                        pstmt.setInt(i+3, IDlista.get(3));
+                        pstmt.setInt(i+4, IDlista.get(4));
+                    }
                 
                 } else if (selected == 4){
-                    
-                    for(int myint : IDlista){
-                         virhe.setText(Integer.toString(myint));
-                    }
-                    
-                    pstmt = conn.prepareStatement("SELECT nimi FROM drinkit WHERE "
+                                       
+                    pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                     
-                    pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(5, IDlista.get(0));  pstmt.setInt(9, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0)); pstmt.setInt(17, IDlista.get(0));
-                    pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(6, IDlista.get(1));  pstmt.setInt(10, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1)); pstmt.setInt(18, IDlista.get(1));
-                    pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(7, IDlista.get(2));  pstmt.setInt(11, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2)); pstmt.setInt(19, IDlista.get(2));
-                    pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(8, IDlista.get(3));  pstmt.setInt(12, IDlista.get(3)); pstmt.setInt(16, IDlista.get(3)); pstmt.setInt(20, IDlista.get(3));
+                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(5, IDlista.get(0));  pstmt.setInt(9, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0)); pstmt.setInt(17, IDlista.get(0));
+                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(6, IDlista.get(1));  pstmt.setInt(10, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1)); pstmt.setInt(18, IDlista.get(1));
+                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(7, IDlista.get(2));  pstmt.setInt(11, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2)); pstmt.setInt(19, IDlista.get(2));
+                    //pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(8, IDlista.get(3));  pstmt.setInt(12, IDlista.get(3)); pstmt.setInt(16, IDlista.get(3)); pstmt.setInt(20, IDlista.get(3));
                     
-                    
-                } else if (selected == 3){
-                    
-                     virhe.setText("Testi3");
-                     
-                    for(int myint : IDlista){
-                         virhe.setText(Integer.toString(myint));
+                    for(int i = 1; i <= 20; i+=4){
+                        pstmt.setInt(i, IDlista.get(0));
+                        pstmt.setInt(i+1, IDlista.get(1));
+                        pstmt.setInt(i+2, IDlista.get(2));
+                        pstmt.setInt(i+3, IDlista.get(3));
                     }
                     
-                    pstmt = conn.prepareStatement("SELECT nimi FROM drinkit WHERE "
+                    
+                } else if (selected == 3){                   
+                    
+                    pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                     
-                    pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(4, IDlista.get(0));  pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(10, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0));
-                    pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(5, IDlista.get(1));  pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(11, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1));
-                    pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(6, IDlista.get(2));  pstmt.setInt(9, IDlista.get(2)); pstmt.setInt(12, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2));
+                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(4, IDlista.get(0));  pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(10, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0));
+                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(5, IDlista.get(1));  pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(11, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1));
+                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(6, IDlista.get(2));  pstmt.setInt(9, IDlista.get(2)); pstmt.setInt(12, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2));
                     
-                    virhe.setText("Testi4");
+                    for(int i = 1; i <= 15; i+=3){
+                        pstmt.setInt(i, IDlista.get(0));
+                        pstmt.setInt(i+1, IDlista.get(1));
+                        pstmt.setInt(i+2, IDlista.get(2));
+                    }
+                    
+                    //virhe.setText("Testi4");
                     
                 } else if (selected == 2){
                     
-                    for(int myint : IDlista){
-                         virhe.setText(Integer.toString(myint));
-                    }
-                    
-                    pstmt = conn.prepareStatement("SELECT nimi FROM drinkit WHERE "
+                    pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 is null);");
                     
-                    pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(3, IDlista.get(0));  pstmt.setInt(5, IDlista.get(0)); pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(9, IDlista.get(0));
-                    pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(4, IDlista.get(1));  pstmt.setInt(6, IDlista.get(1)); pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(10, IDlista.get(1));
+                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(3, IDlista.get(0));  pstmt.setInt(5, IDlista.get(0)); pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(9, IDlista.get(0));
+                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(4, IDlista.get(1));  pstmt.setInt(6, IDlista.get(1)); pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(10, IDlista.get(1));
+                    
+                    for(int i = 1; i <= 10; i+=2){
+                        pstmt.setInt(i, IDlista.get(0));
+                        pstmt.setInt(i+1, IDlista.get(1));
+                    }
                     
                 }
-                virhe.setText("Testi5");
-                rs = pstmt.executeQuery();
-                virhe.setText("Testi6");
-                
-                //if (rs.next() ) {
-                 //   virhe.setText("rs ei ole tyhjä");
-                 //                  if (rs.next() ) {
-                 //   virhe.setText("rs ei ole tyhjä edelleenkään");
-                //} 
-                //}       
 
- 
+                rs = pstmt.executeQuery();     
 
                 int iteraattori = 0; 
                 
                 //virhe.setText("Testi8");
 
                 while (rs.next()) {
-                    virhe.setText("Testi9");
+                    //virhe.setText("Testi9");
                     int id = rs.getInt("id");
                     String nimi = rs.getString("nimi");
                     String kuvaus = rs.getString("kuvaus");
 
-                    virhe.setText("Testi 10");
+                    //virhe.setText("Testi 10");
 
                     if(selected == 5){
                         drinkkiList.add(iteraattori, new Drinkki(id, nimi, IDlista.get(0), IDlista.get(1), IDlista.get(2), IDlista.get(3), IDlista.get(4), kuvaus));
@@ -219,14 +216,12 @@ public class DB {
             } catch (Exception ex) {
                 virhe.setText(ex.toString());
             }
-                //virhe.setText("Palautetaan drinkkiLista");
-                
-                if(drinkkiList.isEmpty()){
-                    //virhe.setText("Drinkkilista on tyhjä");
-                }
-                
-                return drinkkiList;
- 
+            
+            if(drinkkiList.isEmpty()){
+                virhe.setText("Drinkkilista on tyhjä");
+            }
+            
+            return drinkkiList;
         }
        
         public void tallennaUusiAines(JLabel virhe, String nimi){
@@ -240,7 +235,7 @@ public class DB {
                 pstmt.executeUpdate();
                 conn.close();
             } catch (SQLException ex) {
-                virhe.setText(ex.toString());
+                //virhe.setText(ex.toString());
             }
         }
        
@@ -260,7 +255,7 @@ public class DB {
                 pstmt.executeUpdate();
                 conn.close();
             } catch (SQLException ex) {
-                virhe.setText(ex.toString());
+                //virhe.setText(ex.toString());
             }
            
         }
@@ -276,7 +271,7 @@ public class DB {
                
             }
             catch(Exception ex){
-                virhe.setText(ex.toString());
+                //virhe.setText(ex.toString());
             }
         }
        

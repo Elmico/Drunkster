@@ -89,8 +89,9 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
         aines3 = new javax.swing.JComboBox<>();
         aines4 = new javax.swing.JComboBox<>();
         aines5 = new javax.swing.JComboBox<>();
-        txtfieldLisääDrinkki = new javax.swing.JTextField();
         virhe = new javax.swing.JLabel();
+        textfieldDrinkinNimi = new javax.swing.JTextField();
+        labelDrinkinNimi = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +139,8 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
 
         virhe.setText("debug");
 
+        labelDrinkinNimi.setText("Drinkin nimi:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,13 +157,11 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                         .addComponent(btnlisääDrinkki, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfieldLisääDrinkki)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(virhe))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel1)
+                            .addComponent(virhe)
+                            .addComponent(textfieldDrinkinNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDrinkinNimi))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -180,9 +181,9 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(aines1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,7 +191,11 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(aines2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtfieldLisääDrinkki))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(labelDrinkinNimi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldDrinkinNimi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -230,7 +235,7 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPeruutaActionPerformed
 
     private void btnlisääDrinkkiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlisääDrinkkiActionPerformed
-         String nimi = txtfieldLisääDrinkki.getText(); 
+         String nimi = textfieldDrinkinNimi.getText(); 
          String kuvaus = txtareaKuvaus.getText();
          int lennimi = nimi.length();  
         
@@ -262,8 +267,9 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelDrinkinNimi;
+    private javax.swing.JTextField textfieldDrinkinNimi;
     private javax.swing.JTextArea txtareaKuvaus;
-    private javax.swing.JTextField txtfieldLisääDrinkki;
     private javax.swing.JLabel virhe;
     // End of variables declaration//GEN-END:variables
 }

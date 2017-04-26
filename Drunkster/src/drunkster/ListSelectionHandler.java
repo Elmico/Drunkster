@@ -5,6 +5,7 @@
  */
 package drunkster;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ class ListSelectionHandler implements ListSelectionListener {
    
     DefaultListModel dlm;
     JList listBooze;
+    List<Drinkki> drinkitLista = new ArrayList<Drinkki>();
     
     ListSelectionHandler(JLabel virhe, JList listBooze, DefaultListModel dlm){
        // virhe.setText("event listeneri ampuu");
@@ -29,6 +31,13 @@ class ListSelectionHandler implements ListSelectionListener {
         this.listBooze = listBooze;
     }
     
+    ListSelectionHandler(JLabel virhe, List<Drinkki> drinkitLista){
+       // virhe.setText("event listeneri ampuu");
+        this.dlm = dlm;
+        this.listBooze = listBooze;
+    }
+    
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         //ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                 
