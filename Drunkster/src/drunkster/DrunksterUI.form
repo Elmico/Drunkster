@@ -75,7 +75,7 @@
                                   <Component id="txtfieldAddBooze" max="32767" attributes="0"/>
                                   <Component id="btnAddBooze" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btnRemoveBooze" pref="134" max="32767" attributes="0"/>
-                                  <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="buttonHaeDrinkit" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonMuokkaaDrinkkeja" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -116,7 +116,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnRemoveBooze" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonHaeDrinkit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonMuokkaaDrinkkeja" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -160,10 +160,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddBoozeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="buttonHaeDrinkit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Hae drinkit"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHaeDrinkitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtfieldAddBooze">
     </Component>

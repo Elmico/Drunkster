@@ -30,7 +30,34 @@ public class Drinkki {
        this.aines5 = aines5;
        this.kuvaus = kuvaus;
     }
-   
+    
+    Drinkki(int id, String nimi, int aines1, int aines2, int aines3, int aines4, String kuvaus){
+       this.id = id;
+       this.nimi = nimi;
+       this.aines1 = aines1;
+       this.aines2 = aines2;
+       this.aines3 = aines3;
+       this.aines4 = aines4;
+       this.kuvaus = kuvaus;
+    }
+        
+    Drinkki(int id, String nimi, int aines1, int aines2, int aines3, String kuvaus){
+       this.id = id;
+       this.nimi = nimi;
+       this.aines1 = aines1;
+       this.aines2 = aines2;
+       this.aines3 = aines3;
+       this.kuvaus = kuvaus;
+    }
+            
+    Drinkki(int id, String nimi, int aines1, int aines2, String kuvaus){
+       this.id = id;
+       this.nimi = nimi;
+       this.aines1 = aines1;
+       this.aines2 = aines2;
+       this.kuvaus = kuvaus;
+    }
+                
     public String getNimi(){
         return this.nimi;
     }

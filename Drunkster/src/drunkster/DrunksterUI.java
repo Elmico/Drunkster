@@ -52,6 +52,7 @@ public class DrunksterUI extends javax.swing.JFrame {
     DefaultListModel dlm3 = new DefaultListModel();
    
     public List<Aines> ainesList = new ArrayList<Aines>();
+    public List<Drinkki> drinkkiList = new ArrayList<Drinkki>();
    
     public DrunksterUI() {
         
@@ -171,7 +172,7 @@ public class DrunksterUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnAddBooze = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonHaeDrinkit = new javax.swing.JButton();
         txtfieldAddBooze = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -207,7 +208,12 @@ public class DrunksterUI extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Hae drinkit");
+        buttonHaeDrinkit.setText("Hae drinkit");
+        buttonHaeDrinkit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHaeDrinkitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Lisää aines");
 
@@ -298,7 +304,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                                     .addComponent(txtfieldAddBooze)
                                     .addComponent(btnAddBooze, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnRemoveBooze, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(buttonHaeDrinkit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonMuokkaaDrinkkeja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
@@ -330,7 +336,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveBooze)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(buttonHaeDrinkit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonMuokkaaDrinkkeja))
                     .addComponent(jScrollPane3))
@@ -393,6 +399,45 @@ public class DrunksterUI extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnRemoveBoozeActionPerformed
 
+    private void buttonHaeDrinkitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHaeDrinkitActionPerformed
+        
+        int size = selectedBoozes.getModel().getSize();
+        List<String> listName = new ArrayList<String>();
+        List<Integer> listId = new ArrayList<Integer>();
+        
+        if(size > 1 && size < 6){
+            
+            for(int i = 0; i < size; i++){
+                listName.add(selectedBoozes.getModel().getElementAt(i));
+            }
+            
+            for(int j = 0; j < size; j++){
+                for(Aines aines : ainesList){
+                    if(aines.getNimi() == listName.get(j)){
+                        listId.add(aines.getId());
+                    }
+                }
+            }
+            
+            drinkkiList = db.päivitäDrinkit(virhe,size,listId);
+            
+            try {
+                for (Drinkki drinkki : drinkkiList) {
+                    //int id = aines.getId();
+                    String nimi = drinkki.getNimi();      
+                    dlm3.addElement(nimi);
+                }
+            } catch (Exception ex) {
+                virhe.setText(ex.toString());
+            }
+            
+        } else {
+            virhe.setText("Liian vähän tai liian monta ainesta valittu.");
+        }
+        
+        
+    }//GEN-LAST:event_buttonHaeDrinkitActionPerformed
+
     public List<Aines> getAineslist(){
         return ainesList;
     }
@@ -405,7 +450,7 @@ public class DrunksterUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBooze;
     private javax.swing.JButton btnRemoveBooze;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton buttonHaeDrinkit;
     private javax.swing.JButton jButtonMuokkaaDrinkkeja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
