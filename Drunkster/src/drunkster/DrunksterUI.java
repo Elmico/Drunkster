@@ -44,6 +44,12 @@ public class DrunksterUI extends javax.swing.JFrame {
 
     JFrame drinkkiFrame = new frameLisaaDrinkki(this);
     
+    DB db = new DB();
+    
+    DefaultListModel dlm1 = new DefaultListModel();                                                                                 //
+    DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
+    DefaultListModel dlm3 = new DefaultListModel();  
+    
     public DrunksterUI() {
         
         initComponents();
@@ -76,9 +82,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         });                                                                                                                             //
         /*-------------------------Asetetaan default modelit ja kuuntelija valinnan muutoksen seuraamiseksi-----------------------------*/
                                                                                                                                         //
-        DefaultListModel dlm1 = new DefaultListModel();                                                                                 //
-        DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
-        DefaultListModel dlm3 = new DefaultListModel();                                                                                 //
+                                                                                       //
                                                                                                                                         //
         listMyBooze.setModel(dlm1);                                                                                                     //
         selectedBoozes.setModel(dlm2);                                                                                                  //
@@ -112,23 +116,14 @@ public class DrunksterUI extends javax.swing.JFrame {
         labelAines4.setText("");
         labelAines5.setText("");
         
-        DB db = new DB(virhe);
-        ResultSet rs = db.päivitäAinekset(virhe);
+        //DB db = new DB(virhe);
+       päivitäAineksetLista();
         
-        try {
-            while (rs.next()) {
-                String nimi = rs.getString("nimi");
-                String tyyppi = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
-                dlm1.addElement(nimi); 
-            }
-            db.conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        ResultSet rs2 = db.päivitäDrinkit(virhe);
+        
+      //  ResultSet rs2 = db.päivitäDrinkit(virhe);
     
-        try {
+      /*  try {
             while (rs2.next()) {
                 String nimi = rs2.getString("nimi");      
                 dlm3.addElement(nimi); 
@@ -136,10 +131,25 @@ public class DrunksterUI extends javax.swing.JFrame {
             db.conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     
-    
+    public void päivitäAineksetLista(){
+     dlm1.clear();
+     ResultSet rs = db.päivitäAinekset(virhe);
+        
+        try {
+            while (rs.next()) {
+                String nimi = rs.getString("nimi");
+                     
+                dlm1.addElement(nimi); 
+            }
+            db.conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
         
     public void valueChanged(ListSelectionEvent e) {
         ListSelectionModel lsm = (ListSelectionModel)e.getSource();
@@ -207,6 +217,11 @@ public class DrunksterUI extends javax.swing.JFrame {
         jLabel4.setText("Kaapista löytyvät");
 
         btnRemoveBooze.setText("Poista aines");
+        btnRemoveBooze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveBoozeActionPerformed(evt);
+            }
+        });
 
         jScrollPane3.setViewportView(selectedDrinks);
 
@@ -315,7 +330,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonMuokkaaDrinkkeja))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,7 +343,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(virhe)
                 .addGap(22, 22, 22))
         );
@@ -342,8 +357,29 @@ public class DrunksterUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMuokkaaDrinkkejaActionPerformed
 
     private void btnAddBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoozeActionPerformed
+        String nimi = txtfieldAddBooze.getText();
+       
+        int lennimi = nimi.length();
         
+        
+      if (lennimi>0){       
+        
+        try{
+            db.tallennaUusiAines(virhe,nimi);
+            db.conn.close();
+            db.päivitäAinekset(virhe);
+            päivitäAineksetLista();
+            db.conn.close();
+        }
+        catch(Exception e){
+            virhe.setText(e.toString());
+        }    
+      }
     }//GEN-LAST:event_btnAddBoozeActionPerformed
+
+    private void btnRemoveBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBoozeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveBoozeActionPerformed
 
     /**
      * @param args the command line arguments
