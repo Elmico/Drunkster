@@ -5,6 +5,10 @@
  */
 package drunkster;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -15,11 +19,49 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
 
     JFrame main = new JFrame();
     
+
+    
     DB db = new DB();
     
-    public frameLisaaDrinkki(JFrame main) {
+    List<Aines> ainesList = new ArrayList<Aines>();
+    
+   
+
+    public frameLisaaDrinkki(JFrame main, DrunksterUI UI) {
+
         this.main = main;
-        initComponents();
+        initComponents(); 
+         
+    }
+    
+    public void setAinesList(List<Aines> ainesList){
+        
+        this.ainesList = ainesList;
+        
+
+        aines1.removeAllItems();
+        aines2.removeAllItems();
+        aines3.removeAllItems();
+        aines4.removeAllItems();
+        aines5.removeAllItems();
+
+         try {
+            for (Aines aines : this.ainesList) {
+                //int id = aines.getId();
+                String nimi = aines.getNimi();      
+                aines1.addItem(nimi);
+            }
+            for (int i = 0; i<aines1.getItemCount();i++){
+                aines2.addItem(aines1.getItemAt(i));
+                aines3.addItem(aines1.getItemAt(i));
+                aines4.addItem(aines1.getItemAt(i));
+                aines5.addItem(aines1.getItemAt(i));
+            }
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

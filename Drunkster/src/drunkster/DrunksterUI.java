@@ -43,7 +43,7 @@ kuvaus varchar(500) not null);
 */
 public class DrunksterUI extends javax.swing.JFrame {
  
-    JFrame drinkkiFrame = new frameLisaaDrinkki(this);
+    frameLisaaDrinkki drinkkiFrame = new frameLisaaDrinkki(this, this);
    
     DB db = new DB();
    
@@ -51,9 +51,10 @@ public class DrunksterUI extends javax.swing.JFrame {
     DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
     DefaultListModel dlm3 = new DefaultListModel();
    
-    List<Aines> ainesList = new ArrayList<Aines>();
+    public List<Aines> ainesList = new ArrayList<Aines>();
    
     public DrunksterUI() {
+        
        
         initComponents();
          
@@ -121,7 +122,7 @@ public class DrunksterUI extends javax.swing.JFrame {
        
         //DB db = new DB(virhe);
        päivitäAineksetLista();
-       
+       drinkkiFrame.setAinesList(this.ainesList);
        
        
       //  ResultSet rs2 = db.päivitäDrinkit(virhe);
@@ -392,6 +393,9 @@ public class DrunksterUI extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnRemoveBoozeActionPerformed
 
+    public List<Aines> getAineslist(){
+        return ainesList;
+    }
     /**
      * @param args the command line arguments
      */
