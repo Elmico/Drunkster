@@ -43,6 +43,7 @@ kuvaus varchar(500) not null);
 public class DrunksterUI extends javax.swing.JFrame {
 
     JFrame drinkkiFrame = new frameLisaaDrinkki(this);
+    DB db = new DB();
     
     public DrunksterUI() {
         
@@ -112,7 +113,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         labelAines4.setText("");
         labelAines5.setText("");
         
-        DB db = new DB(virhe);
+        //DB db = new DB(virhe);
         ResultSet rs = db.päivitäAinekset(virhe);
         
         try {
@@ -156,7 +157,7 @@ public class DrunksterUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnAddBooze = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonHaeDrinkit = new javax.swing.JButton();
         txtfieldAddBooze = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -192,7 +193,12 @@ public class DrunksterUI extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Hae drinkit");
+        buttonHaeDrinkit.setText("Hae drinkit");
+        buttonHaeDrinkit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHaeDrinkitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Lisää aines");
 
@@ -278,7 +284,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                                     .addComponent(txtfieldAddBooze)
                                     .addComponent(btnAddBooze, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnRemoveBooze, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(buttonHaeDrinkit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonMuokkaaDrinkkeja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
@@ -311,7 +317,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoveBooze)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(buttonHaeDrinkit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonMuokkaaDrinkkeja))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -345,6 +351,11 @@ public class DrunksterUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAddBoozeActionPerformed
 
+    private void buttonHaeDrinkitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHaeDrinkitActionPerformed
+        // luo oliot valituista aineksista
+        // kysele ainesolioiden propertyissä olevan "tyyppi"-muuttujan perusteella
+    }//GEN-LAST:event_buttonHaeDrinkitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -354,7 +365,7 @@ public class DrunksterUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBooze;
     private javax.swing.JButton btnRemoveBooze;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton buttonHaeDrinkit;
     private javax.swing.JButton jButtonMuokkaaDrinkkeja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

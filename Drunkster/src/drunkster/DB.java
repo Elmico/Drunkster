@@ -29,7 +29,7 @@ public class DB {
          public Connection conn = null;
          
 	// privaatti konstruktori, ei voi kutsua ulkopuolelta
-	DB(JLabel virhe) {
+	DB() {
            /* try {
                 Class.forName(MYSQL_AJURI);
             } catch (ClassNotFoundException e) {
