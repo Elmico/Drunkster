@@ -29,7 +29,7 @@ public class DB {
          public Connection conn = null;
          
 	// privaatti konstruktori, ei voi kutsua ulkopuolelta
-	DB(JLabel virhe) {
+	DB() {
            /* try {
                 Class.forName(MYSQL_AJURI);
             } catch (ClassNotFoundException e) {
@@ -67,8 +67,8 @@ public class DB {
             return rs; 
         }
         
-        public ResultSet päivitäDrinkit(JLabel virhe){
-            luoYhteys(virhe);
+          public void päivitäDrinkit(JLabel virhe){
+          /*  luoYhteys(virhe);
             try {
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
@@ -83,26 +83,42 @@ public class DB {
             } catch (SQLException ex) {
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return rs;
+            return rs;*/
         }
         
-        public void tallennaUusiAines(JLabel virhe, String nimi, String tyyppi){
+        public void tallennaUusiAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
             try {
-                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi, tyyppi) VALUES (?,?);");
+                //virhe.setText(nimi);
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi) VALUES (?);");
                 pstmt.setString(1, nimi);
-                pstmt.setString(2, tyyppi);
-                rs = pstmt.executeQuery();
+                pstmt.executeUpdate();
                 conn.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+                virhe.setText(ex.toString());
             }
         }
         
         public void tallennaUusiDrinkki(){
         }
         
-        public void poistaAines(){
+        public void poistaAines(JLabel virhe, String nimi){
+            luoYhteys(virhe);
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("DELETE FROM ainekset(nimi) WHERE nimi=?;");
+                pstmt.setString(1, nimi);
+                int rowsDeleted = pstmt.executeUpdate();
+                if (rowsDeleted > 0) {
+                    virhe.setText("Aines poistettu onnistuneesti.");
+                }
+            }
+            catch(Exception ex){
+                virhe.setText(ex.toString());
+            }
         }
         
         public void poistaDrinkki(){
