@@ -357,28 +357,26 @@ public class DrunksterUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMuokkaaDrinkkejaActionPerformed
 
     private void btnAddBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBoozeActionPerformed
-        String nimi = txtfieldAddBooze.getText();
-       
-        int lennimi = nimi.length();
+        String nimi = txtfieldAddBooze.getText();       
+        int lennimi = nimi.length();  
         
-        
-      if (lennimi>0){       
-        
-        try{
-            db.tallennaUusiAines(virhe,nimi);
-            db.conn.close();
-            db.päivitäAinekset(virhe);
-            päivitäAineksetLista();
-            db.conn.close();
-        }
-        catch(Exception e){
-            virhe.setText(e.toString());
-        }    
+            if (lennimi>0){  
+                try{
+                    db.tallennaUusiAines(virhe,nimi);
+                    db.conn.close();
+                    db.päivitäAinekset(virhe);
+                    päivitäAineksetLista();
+                    db.conn.close();
+                }
+                catch(Exception e){
+                    virhe.setText(e.toString());
+                }    
       }
     }//GEN-LAST:event_btnAddBoozeActionPerformed
 
     private void btnRemoveBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBoozeActionPerformed
-        // TODO add your handling code here:
+       String nimi = listMyBooze.getSelectedValue();
+       //if()
     }//GEN-LAST:event_btnRemoveBoozeActionPerformed
 
     /**

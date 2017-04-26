@@ -89,15 +89,12 @@ public class DB {
         public void tallennaUusiAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
             try {
-                virhe.setText(nimi);
+                //virhe.setText(nimi);
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi) VALUES (?);");
                 pstmt.setString(1, nimi);
-                
                 pstmt.executeUpdate();
-                //rs =
-                
                 conn.close();
             } catch (SQLException ex) {
                 virhe.setText(ex.toString());
@@ -107,10 +104,21 @@ public class DB {
         public void tallennaUusiDrinkki(){
         }
         
-        public void poistaAines(JLabel virhe){
+        public void poistaAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
-            try{}
-            catch(Exception ex){}
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("DELETE FROM ainekset(nimi) WHERE nimi=?;");
+                pstmt.setString(1, nimi);
+                int rowsDeleted = pstmt.executeUpdate();
+                if (rowsDeleted > 0) {
+                    virhe.setText("Aines poistettu onnistuneesti.");
+                }
+            }
+            catch(Exception ex){
+                virhe.setText(ex.toString());
+            }
         }
         
         public void poistaDrinkki(){
