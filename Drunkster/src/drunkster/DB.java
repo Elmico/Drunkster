@@ -89,9 +89,8 @@ public class DB {
         public void tallennaUusiAines(JLabel virhe, String nimi, String tyyppi){
             luoYhteys(virhe);
             try {
-                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi, tyyppi) VALUES (?,?);");
+                PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ainekset(nimi) VALUES (?);");
                 pstmt.setString(1, nimi);
-                pstmt.setString(2, tyyppi);
                 rs = pstmt.executeQuery();
                 conn.close();
             } catch (SQLException ex) {

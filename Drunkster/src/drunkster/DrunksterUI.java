@@ -118,13 +118,12 @@ public class DrunksterUI extends javax.swing.JFrame {
         
         try {
             while (rs.next()) {
-                String nimi = rs.getString("nimi");
-                String tyyppi = rs.getString("tyyppi");     //myöhempää UI suunnittelua varten      
+                String nimi = rs.getString("nimi");    
                 dlm1.addElement(nimi); 
             }
             db.conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+            virhe.setText(ex.toString());
         }
         
         ResultSet rs2 = db.päivitäDrinkit(virhe);
