@@ -30,7 +30,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="virhe" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblKuvaus" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -106,11 +106,9 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="153" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jScrollPane2" alignment="0" pref="153" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="txtfieldAddBooze" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -122,9 +120,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonMuokkaaDrinkkeja" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane3" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -137,7 +135,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+              <Component id="lblKuvaus" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="42" max="32767" attributes="0"/>
               <Component id="virhe" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -256,9 +254,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
+    <Component class="javax.swing.JLabel" name="lblKuvaus">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Valitse listasta alkoholit, joita sinulla on k&#xe4;sill&#xe4;. Lis&#xe4;&#xe4; listaan juomia tarvittaessa."/>
+        <Property name="text" type="java.lang.String" value="Valitse listasta ainekset, joita sinulla on k&#xe4;sill&#xe4;. Lis&#xe4;&#xe4; listaan juomia tarvittaessa."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonMuokkaaDrinkkeja">

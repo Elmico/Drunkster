@@ -67,23 +67,25 @@ public class DB {
             return rs; 
         }
         
-          public void päivitäDrinkit(JLabel virhe){
-          /*  luoYhteys(virhe);
+          public ResultSet päivitäDrinkit(JLabel virhe){
+            luoYhteys(virhe);
             try {
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("SELECT name FROM drinkit WHERE "
-                                                + "aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? AND"
-                                                + "aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? AND"
-                                                + "aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null AND"
-                                                + "aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null AND"
-                                                + "aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null;");
+                                                + "(aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
+                                                + "(aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
+                                                + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
+                                                + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
+                                                + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                 rs = pstmt.executeQuery();
                 //conn.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return rs;*/
+
+                return rs;
+
         }
         
         public void tallennaUusiAines(JLabel virhe, String nimi){
@@ -101,7 +103,9 @@ public class DB {
             }
         }
         
-        public void tallennaUusiDrinkki(){
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi){
+            luoYhteys(virhe);
+            
         }
         
         public void poistaAines(JLabel virhe, String nimi){

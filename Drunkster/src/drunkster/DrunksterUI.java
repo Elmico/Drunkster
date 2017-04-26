@@ -182,7 +182,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblKuvaus = new javax.swing.JLabel();
         jButtonMuokkaaDrinkkeja = new javax.swing.JButton();
         labelAines1 = new javax.swing.JLabel();
         labelAines2 = new javax.swing.JLabel();
@@ -229,7 +229,7 @@ public class DrunksterUI extends javax.swing.JFrame {
 
         jLabel6.setText("Kuvaus:");
 
-        jLabel8.setText("Valitse listasta alkoholit, joita sinulla on käsillä. Lisää listaan juomia tarvittaessa.");
+        lblKuvaus.setText("Valitse listasta ainekset, joita sinulla on käsillä. Lisää listaan juomia tarvittaessa.");
 
         jButtonMuokkaaDrinkkeja.setText("Muokkaa drinkkejä");
         jButtonMuokkaaDrinkkeja.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +259,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(virhe)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8)))
+                            .addComponent(lblKuvaus)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -315,10 +315,9 @@ public class DrunksterUI extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtfieldAddBooze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -329,8 +328,8 @@ public class DrunksterUI extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonMuokkaaDrinkkeja))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                    .addComponent(jScrollPane3))
+                .addGap(59, 59, 59)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -342,7 +341,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(lblKuvaus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(virhe)
                 .addGap(22, 22, 22))
@@ -407,7 +406,6 @@ public class DrunksterUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -416,6 +414,7 @@ public class DrunksterUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelAines3;
     private javax.swing.JLabel labelAines4;
     private javax.swing.JLabel labelAines5;
+    private javax.swing.JLabel lblKuvaus;
     private javax.swing.JList<String> listMyBooze;
     private javax.swing.JList<String> selectedBoozes;
     private javax.swing.JList<String> selectedDrinks;
