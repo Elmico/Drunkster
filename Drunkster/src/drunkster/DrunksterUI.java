@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,17 +42,19 @@ aines5 varchar(30) null,
 kuvaus varchar(500) not null);
 */
 public class DrunksterUI extends javax.swing.JFrame {
-
+ 
     JFrame drinkkiFrame = new frameLisaaDrinkki(this);
-    
+   
     DB db = new DB();
-    
+   
     DefaultListModel dlm1 = new DefaultListModel();                                                                                 //
     DefaultListModel dlm2 = new DefaultListModel();                                                                                 //
-    DefaultListModel dlm3 = new DefaultListModel();  
-    
+    DefaultListModel dlm3 = new DefaultListModel();
+   
+    List<Aines> ainesList = new ArrayList<Aines>();
+   
     public DrunksterUI() {
-        
+       
         initComponents();
          
         /*--------------------------rakennetaan oma selectionModel jList tyypille, joka tukee toggle valintaa.--------------------------*/
@@ -88,7 +91,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         selectedBoozes.setModel(dlm2);                                                                                                  //
         selectedDrinks.setModel(dlm3);                                                                                                  //
                                                                                                                                         //
-        ListSelectionModel listSelectionModel = listMyBooze.getSelectionModel();                                                        //   
+        ListSelectionModel listSelectionModel = listMyBooze.getSelectionModel();                                                        //  
         listSelectionModel.addListSelectionListener(new ListSelectionHandler(virhe, listMyBooze, dlm2));                                //
                                                                                                                                         //
         //List mylist = listMyBooze.getSelectedValuesList();                                                                            //
@@ -96,7 +99,7 @@ public class DrunksterUI extends javax.swing.JFrame {
         /*------------------------------------Täytetään JLIST testidatalla tiedostosta--------------------------------------------------*/
                                                                                                                                         //
         /*Path path = Paths.get("testi.txt");                                                                                           //
-        try{                                                                                                                            //   
+        try{                                                                                                                            //  
             mylist = Files.readAllLines(path, StandardCharsets.UTF_8);                                                                  //
         } catch (Exception e){                                                                                                          //
             virhe.setText(e.toString());                                                                                                //
@@ -109,46 +112,47 @@ public class DrunksterUI extends javax.swing.JFrame {
             dlm1.addElement(mylist.get(i));                                                                                             //
         }*/                                                                                                                             //
         /*------------------------------------------------------------------------------------------------------------------------------*/
-        
+       
         labelAines1.setText("");
         labelAines2.setText("");
         labelAines3.setText("");
         labelAines4.setText("");
         labelAines5.setText("");
-        
+       
         //DB db = new DB(virhe);
        päivitäAineksetLista();
-        
-        
-        
+       
+       
+       
       //  ResultSet rs2 = db.päivitäDrinkit(virhe);
-    
+   
       /*  try {
             while (rs2.next()) {
                 String nimi = rs2.getString("nimi");      
-                dlm3.addElement(nimi); 
+                dlm3.addElement(nimi);
             }
             db.conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
         }*/
     }
-    
+   
     public void päivitäAineksetLista(){
-     dlm1.clear();
-     ResultSet rs = db.päivitäAinekset(virhe);
-        
+        dlm1.clear();
+        ainesList.clear();
+        ainesList = db.päivitäAinekset(virhe);
+       
         try {
-            while (rs.next()) {
-                String nimi = rs.getString("nimi");
-                     
-                dlm1.addElement(nimi); 
+            for (Aines aines : ainesList) {
+                //int id = aines.getId();
+                String nimi = aines.getNimi();      
+                dlm1.addElement(nimi);
             }
-            db.conn.close();
-        } catch (SQLException ex) {
+//            db.conn.close();
+        } catch (Exception ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+ 
     }
         
     public void valueChanged(ListSelectionEvent e) {

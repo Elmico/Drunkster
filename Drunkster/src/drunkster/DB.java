@@ -4,69 +4,89 @@
  * and open the template in the editor.
  */
 package drunkster;
-
+ 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
-
+ 
 /**
  *
  * @author Aleksi
  */
 public class DB {
-    
-	public static final String MYSQL_URL = "jdbc:mysql://mysql.labranet.jamk.fi";
-	public static final String MYSQL_KAYTTAJA = "H8827";
-	public static final String MYSQL_SALASANA = "ZVCt2kgTPNfvLdKH89T4RenbT0yA4VmH";
-	public static final String MYSQL_AJURI = "com.mysql.jdbc.Driver";
-        
+   
+    public static final String MYSQL_URL = "jdbc:mysql://mysql.labranet.jamk.fi";
+    public static final String MYSQL_KAYTTAJA = "H8827";
+    public static final String MYSQL_SALASANA = "ZVCt2kgTPNfvLdKH89T4RenbT0yA4VmH";
+    public static final String MYSQL_AJURI = "com.mysql.jdbc.Driver";
+       
          ResultSet rs = null;
          public Connection conn = null;
          
-	// privaatti konstruktori, ei voi kutsua ulkopuolelta
-	DB() {
+    // privaatti konstruktori, ei voi kutsua ulkopuolelta
+    DB() {
            /* try {
                 Class.forName(MYSQL_AJURI);
             } catch (ClassNotFoundException e) {
                     virhe.setText(e.toString());
             }*/
-	}
-
-	private void luoYhteys(JLabel virhe) {
+    }
+ 
+    private void luoYhteys(JLabel virhe) {
             conn = null;
             try {
                 Class.forName(MYSQL_AJURI);
                 conn = DriverManager.getConnection(MYSQL_URL, MYSQL_KAYTTAJA, MYSQL_SALASANA);
             } catch (Exception e) {
-                virhe.setText(e.toString()); 
+                virhe.setText(e.toString());
             }
-	}
-    
-        public ResultSet päivitäAinekset(JLabel virhe){
+    }
+   
+        public List<Aines> päivitäAinekset(JLabel virhe){
             luoYhteys(virhe);
-            
-            if(conn != null){
-                //virhe.setText("conn on null"); 
+           
+            List<Aines> ainesList = new ArrayList<Aines>();
+           
+            if(conn == null){
+                //virhe.setText("conn on null");
             }
-            
+           
             try {
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("SELECT * FROM ainekset;");
                 rs = pstmt.executeQuery();
+               
+                try {
+                    int iteraattori = 0;  
+                    while (rs.next()) {
+                        int id = rs.getInt("id");
+                        String nimi = rs.getString("nimi");                      
+                       
+                        ainesList.add(iteraattori, new Aines(id, nimi));
+ 
+                        iteraattori++;
+                    }
+                    //db.conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
                 //conn.close();
             } catch (SQLException ex) {
-                virhe.setText(ex.toString()); 
+                virhe.setText(ex.toString());
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             } 
-            return rs; 
+            return ainesList;
         }
-        
+       
           public ResultSet päivitäDrinkit(JLabel virhe){
             luoYhteys(virhe);
             try {
@@ -79,15 +99,15 @@ public class DB {
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                 rs = pstmt.executeQuery();
-                //conn.close();
+               
             } catch (SQLException ex) {
                 Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+ 
                 return rs;
-
+ 
         }
-        
+       
         public void tallennaUusiAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
             try {
@@ -102,12 +122,12 @@ public class DB {
                 virhe.setText(ex.toString());
             }
         }
-        
+       
         public void tallennaUusiDrinkki(JLabel virhe, String nimi){
             luoYhteys(virhe);
-            
+           
         }
-        
+       
         public void poistaAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
             try{
@@ -116,13 +136,13 @@ public class DB {
                 pstmt = conn.prepareStatement("DELETE FROM ainekset WHERE nimi=?;");
                 pstmt.setString(1, nimi);
                 pstmt.executeUpdate();
-                
+               
             }
             catch(Exception ex){
                 virhe.setText(ex.toString());
             }
         }
-        
+       
         public void poistaDrinkki(){
         }
 }
