@@ -376,7 +376,17 @@ public class DrunksterUI extends javax.swing.JFrame {
 
     private void btnRemoveBoozeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveBoozeActionPerformed
        String nimi = listMyBooze.getSelectedValue();
-       //if()
+       try{
+           virhe.setText(nimi);
+           db.poistaAines(virhe, nimi);
+           db.conn.close();
+           db.päivitäAinekset(virhe);
+           päivitäAineksetLista();
+           db.conn.close();
+       }
+       catch(Exception e){
+           virhe.setText(e.toString());
+       }
     }//GEN-LAST:event_btnRemoveBoozeActionPerformed
 
     /**

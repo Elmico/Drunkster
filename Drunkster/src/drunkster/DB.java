@@ -109,12 +109,10 @@ public class DB {
             try{
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
-                pstmt = conn.prepareStatement("DELETE FROM ainekset(nimi) WHERE nimi=?;");
+                pstmt = conn.prepareStatement("DELETE FROM ainekset WHERE nimi=?;");
                 pstmt.setString(1, nimi);
-                int rowsDeleted = pstmt.executeUpdate();
-                if (rowsDeleted > 0) {
-                    virhe.setText("Aines poistettu onnistuneesti.");
-                }
+                pstmt.executeUpdate();
+                
             }
             catch(Exception ex){
                 virhe.setText(ex.toString());
