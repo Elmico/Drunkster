@@ -73,11 +73,11 @@ public class DB {
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("SELECT name FROM drinkit WHERE "
-                                                + "aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? AND"
-                                                + "aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? AND"
-                                                + "aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null AND"
-                                                + "aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null AND"
-                                                + "aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null;");
+                                                + "(aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
+                                                + "(aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
+                                                + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
+                                                + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
+                                                + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
                 rs = pstmt.executeQuery();
                 //conn.close();
             } catch (SQLException ex) {
