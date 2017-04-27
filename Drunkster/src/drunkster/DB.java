@@ -29,6 +29,8 @@ public class DB {
        
     ResultSet rs = null;
     public Connection conn = null;
+    List<Drinkki> kaikkiDrinkit = new ArrayList<Drinkki>();
+    
          
     // privaatti konstruktori, ei voi kutsua ulkopuolelta
     DB() {
@@ -86,19 +88,19 @@ public class DB {
             return ainesList;
         }
        
-          public List<Drinkki> päivitäDrinkit(JLabel virhe, int selected, List<Integer> IDlista){
+          public List<Drinkki> päivitäDrinkit(JLabel virhe, int selected, List<String> tyyppiLista){
             luoYhteys(virhe);
-            
+           
             List<Drinkki> drinkkiList = new ArrayList<Drinkki>();
-            
+           
             //virhe.setText("Testi");
             //virhe.setText("Selected = " + selected);
-            
+           
             try {
-                
+               
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
-                
+               
                 if(selected == 5){
                                    
                     pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
@@ -107,21 +109,21 @@ public class DB {
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
-                    
-                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(6, IDlista.get(0));  pstmt.setInt(11, IDlista.get(0)); pstmt.setInt(16, IDlista.get(0)); pstmt.setInt(21, IDlista.get(0));
-                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(7, IDlista.get(1));  pstmt.setInt(12, IDlista.get(1)); pstmt.setInt(17, IDlista.get(1)); pstmt.setInt(22, IDlista.get(1));
-                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(8, IDlista.get(2));  pstmt.setInt(13, IDlista.get(2)); pstmt.setInt(18, IDlista.get(2)); pstmt.setInt(23, IDlista.get(2));
-                    //pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(9, IDlista.get(3));  pstmt.setInt(14, IDlista.get(3)); pstmt.setInt(19, IDlista.get(3)); pstmt.setInt(24, IDlista.get(3));
-                    //pstmt.setInt(5, IDlista.get(4)); pstmt.setInt(10, IDlista.get(4)); pstmt.setInt(15, IDlista.get(4)); pstmt.setInt(20, IDlista.get(4)); pstmt.setInt(25, IDlista.get(4));
-                    
+                   
+                    //pstmt.setInt(1, tyyppiLista.get(0)); pstmt.setInt(6, tyyppiLista.get(0));  pstmt.setInt(11, tyyppiLista.get(0)); pstmt.setInt(16, tyyppiLista.get(0)); pstmt.setInt(21, tyyppiLista.get(0));
+                    //pstmt.setInt(2, tyyppiLista.get(1)); pstmt.setInt(7, tyyppiLista.get(1));  pstmt.setInt(12, tyyppiLista.get(1)); pstmt.setInt(17, tyyppiLista.get(1)); pstmt.setInt(22, tyyppiLista.get(1));
+                    //pstmt.setInt(3, tyyppiLista.get(2)); pstmt.setInt(8, tyyppiLista.get(2));  pstmt.setInt(13, tyyppiLista.get(2)); pstmt.setInt(18, tyyppiLista.get(2)); pstmt.setInt(23, tyyppiLista.get(2));
+                    //pstmt.setInt(4, tyyppiLista.get(3)); pstmt.setInt(9, tyyppiLista.get(3));  pstmt.setInt(14, tyyppiLista.get(3)); pstmt.setInt(19, tyyppiLista.get(3)); pstmt.setInt(24, tyyppiLista.get(3));
+                    //pstmt.setInt(5, tyyppiLista.get(4)); pstmt.setInt(10, tyyppiLista.get(4)); pstmt.setInt(15, tyyppiLista.get(4)); pstmt.setInt(20, tyyppiLista.get(4)); pstmt.setInt(25, tyyppiLista.get(4));
+                   
                     for(int i = 1; i <= 25; i+=5){
-                        pstmt.setInt(i, IDlista.get(0));
-                        pstmt.setInt(i+1, IDlista.get(1));
-                        pstmt.setInt(i+2, IDlista.get(2));
-                        pstmt.setInt(i+3, IDlista.get(3));
-                        pstmt.setInt(i+4, IDlista.get(4));
+                        pstmt.setString(i, tyyppiLista.get(0));
+                        pstmt.setString(i+1, tyyppiLista.get(1));
+                        pstmt.setString(i+2, tyyppiLista.get(2));
+                        pstmt.setString(i+3, tyyppiLista.get(3));
+                        pstmt.setString(i+4, tyyppiLista.get(4));
                     }
-                
+               
                 } else if (selected == 4){
                                        
                     pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
@@ -130,84 +132,84 @@ public class DB {
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
-                    
-                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(5, IDlista.get(0));  pstmt.setInt(9, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0)); pstmt.setInt(17, IDlista.get(0));
-                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(6, IDlista.get(1));  pstmt.setInt(10, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1)); pstmt.setInt(18, IDlista.get(1));
-                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(7, IDlista.get(2));  pstmt.setInt(11, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2)); pstmt.setInt(19, IDlista.get(2));
-                    //pstmt.setInt(4, IDlista.get(3)); pstmt.setInt(8, IDlista.get(3));  pstmt.setInt(12, IDlista.get(3)); pstmt.setInt(16, IDlista.get(3)); pstmt.setInt(20, IDlista.get(3));
-                    
+                   
+                    //pstmt.setInt(1, tyyppiLista.get(0)); pstmt.setInt(5, tyyppiLista.get(0));  pstmt.setInt(9, tyyppiLista.get(0)); pstmt.setInt(13, tyyppiLista.get(0)); pstmt.setInt(17, tyyppiLista.get(0));
+                    //pstmt.setInt(2, tyyppiLista.get(1)); pstmt.setInt(6, tyyppiLista.get(1));  pstmt.setInt(10, tyyppiLista.get(1)); pstmt.setInt(14, tyyppiLista.get(1)); pstmt.setInt(18, tyyppiLista.get(1));
+                    //pstmt.setInt(3, tyyppiLista.get(2)); pstmt.setInt(7, tyyppiLista.get(2));  pstmt.setInt(11, tyyppiLista.get(2)); pstmt.setInt(15, tyyppiLista.get(2)); pstmt.setInt(19, tyyppiLista.get(2));
+                    //pstmt.setInt(4, tyyppiLista.get(3)); pstmt.setInt(8, tyyppiLista.get(3));  pstmt.setInt(12, tyyppiLista.get(3)); pstmt.setInt(16, tyyppiLista.get(3)); pstmt.setInt(20, tyyppiLista.get(3));
+                   
                     for(int i = 1; i <= 20; i+=4){
-                        pstmt.setInt(i, IDlista.get(0));
-                        pstmt.setInt(i+1, IDlista.get(1));
-                        pstmt.setInt(i+2, IDlista.get(2));
-                        pstmt.setInt(i+3, IDlista.get(3));
+                        pstmt.setString(i, tyyppiLista.get(0));
+                        pstmt.setString(i+1, tyyppiLista.get(1));
+                        pstmt.setString(i+2, tyyppiLista.get(2));
+                        pstmt.setString(i+3, tyyppiLista.get(3));
                     }
-                    
-                    
-                } else if (selected == 3){                   
-                    
+                   
+                   
+                } else if (selected == 3){                  
+                   
                     pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 = ? OR aines5 is null);");
-                    
-                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(4, IDlista.get(0));  pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(10, IDlista.get(0)); pstmt.setInt(13, IDlista.get(0));
-                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(5, IDlista.get(1));  pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(11, IDlista.get(1)); pstmt.setInt(14, IDlista.get(1));
-                    //pstmt.setInt(3, IDlista.get(2)); pstmt.setInt(6, IDlista.get(2));  pstmt.setInt(9, IDlista.get(2)); pstmt.setInt(12, IDlista.get(2)); pstmt.setInt(15, IDlista.get(2));
-                    
+                   
+                    //pstmt.setInt(1, tyyppiLista.get(0)); pstmt.setInt(4, tyyppiLista.get(0));  pstmt.setInt(7, tyyppiLista.get(0)); pstmt.setInt(10, tyyppiLista.get(0)); pstmt.setInt(13, tyyppiLista.get(0));
+                    //pstmt.setInt(2, tyyppiLista.get(1)); pstmt.setInt(5, tyyppiLista.get(1));  pstmt.setInt(8, tyyppiLista.get(1)); pstmt.setInt(11, tyyppiLista.get(1)); pstmt.setInt(14, tyyppiLista.get(1));
+                    //pstmt.setInt(3, tyyppiLista.get(2)); pstmt.setInt(6, tyyppiLista.get(2));  pstmt.setInt(9, tyyppiLista.get(2)); pstmt.setInt(12, tyyppiLista.get(2)); pstmt.setInt(15, tyyppiLista.get(2));
+                   
                     for(int i = 1; i <= 15; i+=3){
-                        pstmt.setInt(i, IDlista.get(0));
-                        pstmt.setInt(i+1, IDlista.get(1));
-                        pstmt.setInt(i+2, IDlista.get(2));
+                        pstmt.setString(i, tyyppiLista.get(0));
+                        pstmt.setString(i+1, tyyppiLista.get(1));
+                        pstmt.setString(i+2, tyyppiLista.get(2));
                     }
-                    
+                   
                     //virhe.setText("Testi4");
-                    
+                   
                 } else if (selected == 2){
-                    
+                   
                     pstmt = conn.prepareStatement("SELECT * FROM drinkit WHERE "
                                                 + "(aines1 = ? OR aines1 = ?) AND"
                                                 + "(aines2 = ? OR aines2 = ?) AND"
                                                 + "(aines3 = ? OR aines3 = ? OR aines3 is null) AND"
                                                 + "(aines4 = ? OR aines4 = ? OR aines4 is null) AND"
                                                 + "(aines5 = ? OR aines5 = ? OR aines5 is null);");
-                    
-                    //pstmt.setInt(1, IDlista.get(0)); pstmt.setInt(3, IDlista.get(0));  pstmt.setInt(5, IDlista.get(0)); pstmt.setInt(7, IDlista.get(0)); pstmt.setInt(9, IDlista.get(0));
-                    //pstmt.setInt(2, IDlista.get(1)); pstmt.setInt(4, IDlista.get(1));  pstmt.setInt(6, IDlista.get(1)); pstmt.setInt(8, IDlista.get(1)); pstmt.setInt(10, IDlista.get(1));
-                    
+                   
+                    //pstmt.setInt(1, tyyppiLista.get(0)); pstmt.setInt(3, tyyppiLista.get(0));  pstmt.setInt(5, tyyppiLista.get(0)); pstmt.setInt(7, tyyppiLista.get(0)); pstmt.setInt(9, tyyppiLista.get(0));
+                    //pstmt.setInt(2, tyyppiLista.get(1)); pstmt.setInt(4, tyyppiLista.get(1));  pstmt.setInt(6, tyyppiLista.get(1)); pstmt.setInt(8, tyyppiLista.get(1)); pstmt.setInt(10, tyyppiLista.get(1));
+                   
                     for(int i = 1; i <= 10; i+=2){
-                        pstmt.setInt(i, IDlista.get(0));
-                        pstmt.setInt(i+1, IDlista.get(1));
+                        pstmt.setString(i, tyyppiLista.get(0));
+                        pstmt.setString(i+1, tyyppiLista.get(1));
                     }
-                    
+                   
                 }
-
-                rs = pstmt.executeQuery();     
-
-                int iteraattori = 0; 
-                
+ 
+                rs = pstmt.executeQuery();    
+ 
+                int iteraattori = 0;
+               
                 //virhe.setText("Testi8");
-
+ 
                 while (rs.next()) {
                     //virhe.setText("Testi9");
                     int id = rs.getInt("id");
                     String nimi = rs.getString("nimi");
                     String kuvaus = rs.getString("kuvaus");
-
+ 
                     //virhe.setText("Testi 10");
-
+ 
                     if(selected == 5){
-                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, IDlista.get(0), IDlista.get(1), IDlista.get(2), IDlista.get(3), IDlista.get(4), kuvaus));
+                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, tyyppiLista.get(0), tyyppiLista.get(1), tyyppiLista.get(2), tyyppiLista.get(3), tyyppiLista.get(4), kuvaus));
                     } else if (selected == 4){                        
-                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, IDlista.get(0), IDlista.get(1), IDlista.get(2), IDlista.get(3), kuvaus));
+                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, tyyppiLista.get(0), tyyppiLista.get(1), tyyppiLista.get(2), tyyppiLista.get(3), kuvaus));
                     } else if (selected == 3){
-                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, IDlista.get(0), IDlista.get(1), IDlista.get(2), kuvaus));
+                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, tyyppiLista.get(0), tyyppiLista.get(1), tyyppiLista.get(2), kuvaus));
                     } else if (selected == 2){
-                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, IDlista.get(0), IDlista.get(1), kuvaus));
+                        drinkkiList.add(iteraattori, new Drinkki(id, nimi, tyyppiLista.get(0), tyyppiLista.get(1), kuvaus));
                     }
-
+ 
                     iteraattori++;
                 }
                 //virhe.setText("Testi11");
@@ -216,11 +218,11 @@ public class DB {
             } catch (Exception ex) {
                 virhe.setText(ex.toString());
             }
-            
+           
             if(drinkkiList.isEmpty()){
                 virhe.setText("Drinkkilista on tyhjä");
             }
-            
+           
             return drinkkiList;
         }
        
@@ -259,6 +261,21 @@ public class DB {
             }
            
         }
+        
+         public void poistaDrinkki(JLabel virhe, String nimi, int aines1, int aines2, int aines3, int aines4, int aines5, String kuvaus){
+             luoYhteys(virhe);
+             try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("DELETE FROM drinkit WHERE nimi=?;");
+                pstmt.setString(1, nimi);
+                pstmt.executeUpdate();
+               
+            }
+            catch(Exception ex){
+                //virhe.setText(ex.toString());
+            }
+        }
        
         public void poistaAines(JLabel virhe, String nimi){
             luoYhteys(virhe);
@@ -274,6 +291,31 @@ public class DB {
                 //virhe.setText(ex.toString());
             }
         }
-       
+        
+        public List<Drinkki> haeKaikkiDrinkit(JLabel virhe){
+            luoYhteys(virhe);
+            List<Drinkki> kaikkiDrinkit = new ArrayList<Drinkki>();
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("SELECT * FROM drinkit;");
+                rs = pstmt.executeQuery();
+               /* if (rs.next()){
+                    virhe.setText("rs ei ole tyhjä");
+                }*/
+                while (rs.next()){
+                    
+                    kaikkiDrinkit.add(new Drinkki(rs.getInt("id"), rs.getString("nimi"),rs.getString("aines1"), rs.getString("aines2"), rs.getString("kuvaus")));
+                } 
+                if(kaikkiDrinkit.isEmpty()){
+                    virhe.setText("kaikki drinkit on tyhjä");
+                }
+                this.kaikkiDrinkit = kaikkiDrinkit;
+            }
+            catch(Exception ex){
+                virhe.setText(ex.toString());
+            }
+            return this.kaikkiDrinkit;
+        }
         
 }

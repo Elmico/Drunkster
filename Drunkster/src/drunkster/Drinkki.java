@@ -13,14 +13,14 @@ public class Drinkki {
    
     private int id;
     private String nimi;
-    private int aines1;
-    private int aines2;
-    private int aines3;
-    private int aines4;
-    private int aines5;
+    private String aines1;
+    private String aines2;
+    private String aines3;
+    private String aines4;
+    private String aines5;
     private String kuvaus;
    
-    Drinkki(int id, String nimi, int aines1, int aines2, int aines3, int aines4, int aines5, String kuvaus){
+    Drinkki(int id, String nimi, String aines1, String aines2, String aines3, String aines4, String aines5, String kuvaus){
        this.id = id;
        this.nimi = nimi;
        this.aines1 = aines1;
@@ -30,8 +30,8 @@ public class Drinkki {
        this.aines5 = aines5;
        this.kuvaus = kuvaus;
     }
-    
-    Drinkki(int id, String nimi, int aines1, int aines2, int aines3, int aines4, String kuvaus){
+   
+    Drinkki(int id, String nimi, String aines1, String aines2, String aines3, String aines4, String kuvaus){
        this.id = id;
        this.nimi = nimi;
        this.aines1 = aines1;
@@ -40,8 +40,8 @@ public class Drinkki {
        this.aines4 = aines4;
        this.kuvaus = kuvaus;
     }
-        
-    Drinkki(int id, String nimi, int aines1, int aines2, int aines3, String kuvaus){
+       
+    Drinkki(int id, String nimi, String aines1, String aines2, String aines3, String kuvaus){
        this.id = id;
        this.nimi = nimi;
        this.aines1 = aines1;
@@ -49,15 +49,15 @@ public class Drinkki {
        this.aines3 = aines3;
        this.kuvaus = kuvaus;
     }
-            
-    Drinkki(int id, String nimi, int aines1, int aines2, String kuvaus){
+           
+    Drinkki(int id, String nimi, String aines1, String aines2, String kuvaus){
        this.id = id;
        this.nimi = nimi;
        this.aines1 = aines1;
        this.aines2 = aines2;
        this.kuvaus = kuvaus;
     }
-                
+               
     public String getNimi(){
         return this.nimi;
     }
@@ -65,27 +65,27 @@ public class Drinkki {
     public int getId(){
         return this.id;
     }
-    
-    public int getAines1(){
+   
+    public String getAines1(){
         return this.aines1;
     }
-    
-    public int getAines2(){
+   
+    public String getAines2(){
         return this.aines2;
     }
-    
-    public int getAines3(){
+   
+    public String getAines3(){
         return this.aines3;
     }
-    
-    public int getAines4(){
+   
+    public String getAines4(){
         return this.aines4;
     }
-    
-    public int getAines5(){
+   
+    public String getAines5(){
         return this.aines5;
     }
-    
+   
     public String getKuvaus(){
         return this.kuvaus;
     }

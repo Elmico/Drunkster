@@ -143,6 +143,15 @@ public class DrunksterUI extends javax.swing.JFrame {
         //DB db = new DB(virhe);
        päivitäAineksetLista();
        drinkkiFrame.setAinesList(this.ainesList);
+       try{
+       db.conn.close();
+       }
+       catch(Exception e){}
+       
+       if(db.haeKaikkiDrinkit(virhe).isEmpty()){
+          // virhe.setText("tyhjä saatana");
+       }
+       drinkkiFrame.setDrinkkiList(db.haeKaikkiDrinkit(virhe));
        
        
       //  ResultSet rs2 = db.päivitäDrinkit(virhe);
@@ -168,6 +177,7 @@ public class DrunksterUI extends javax.swing.JFrame {
                 //int id = aines.getId();
                 String nimi = aines.getNimi();      
                 dlm1.addElement(nimi);
+                
             }
 //            db.conn.close();
         } catch (Exception ex) {
@@ -431,28 +441,28 @@ public class DrunksterUI extends javax.swing.JFrame {
 
     private void buttonHaeDrinkitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHaeDrinkitActionPerformed
         
-        dlm3.clear();
-        
+       dlm3.clear();
+       
         int size = selectedBoozes.getModel().getSize();
         List<String> listName = new ArrayList<String>();
         List<Integer> listId = new ArrayList<Integer>();
-        
+       
         if(size > 1 && size < 6){
-            
+           
             for(int i = 0; i < size; i++){
                 listName.add(selectedBoozes.getModel().getElementAt(i));
             }
-            
-            for(int j = 0; j < size; j++){
-                for(Aines aines : ainesList){
-                    if(aines.getNimi() == listName.get(j)){
-                        listId.add(aines.getId());
-                    }
-                }
+           
+            for(int j = 0; j < size; j++){                                      //haetaan listassa olevien ainesten nimien perusteella niitä vastaavat id:t.
+                for(Aines aines : ainesList){                                   //Alkuperäisessä tietokantatoteutuksessa drinkeillä oli ainekset niiden omilla id-arvoilla.
+                    if(aines.getNimi() == listName.get(j)){                     //Nykymallissa käytetään Stringejä. Ongelmana oli, että kun drinkki lisätään kantaan käyttäen
+                        listId.add(aines.getId());                              //olemassa olevien ainesten id-arvoja, jos aines poistettiin ja myöhemmin lisättiin uudelleen
+                    }                                                           //drinkkiä ei koskaan löytynyt enää ko. aineksilla, koska poistetun ja uudelleen lisätyn aineksen
+                }                                                               //id oli eri.
             }
-            
-            drinkkiList = db.päivitäDrinkit(virhe,size,listId);
-            
+           
+            drinkkiList = db.päivitäDrinkit(virhe,size,listName);
+           
             try {
                 for (Drinkki drinkki : drinkkiList) {
                     //int id = aines.getId();
@@ -462,11 +472,10 @@ public class DrunksterUI extends javax.swing.JFrame {
             } catch (Exception ex) {
                virhe.setText(ex.toString());
             }
-            
+           
         } else {
             virhe.setText("Liian vähän tai liian monta ainesta valittu.");
         }
-        
         
     }//GEN-LAST:event_buttonHaeDrinkitActionPerformed
 
