@@ -47,9 +47,8 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
             for (Drinkki drinkki : this.drinkkiList){
                 String nimi = drinkki.getNimi();      
                 cbPoistaDrinkki.addItem(nimi);
-                virhe.setText("höpö");
+                //virhe.setText("höpö");
             }
-            
         }
         catch(Exception ex){
             virhe.setText(ex.toString());
@@ -61,26 +60,27 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
         this.ainesList = ainesList;
         
 
-        aines1.removeAllItems();
-        aines2.removeAllItems();
-        aines3.removeAllItems();
-        aines4.removeAllItems();
-        aines5.removeAllItems();
+        cbAines1.removeAllItems();
+        cbAines2.removeAllItems();
+        cbAines3.removeAllItems();
+        cbAines4.removeAllItems();
+        cbAines5.removeAllItems();
 
+        cbAines1.addItem("");
+        
          try {
+             
             for (Aines aines : this.ainesList) {
                 //int id = aines.getId();
                 String nimi = aines.getNimi();      
-                aines1.addItem(nimi);
+                cbAines1.addItem(nimi);
             }
-            for (int i = 0; i<aines1.getItemCount();i++){
-                aines2.addItem(aines1.getItemAt(i));
-                aines3.addItem(aines1.getItemAt(i));
-                aines4.addItem(aines1.getItemAt(i));
-                aines5.addItem(aines1.getItemAt(i));
+            for (int i = 0; i < cbAines1.getItemCount();i++){
+                cbAines2.addItem(cbAines1.getItemAt(i));
+                cbAines3.addItem(cbAines1.getItemAt(i));
+                cbAines4.addItem(cbAines1.getItemAt(i));
+                cbAines5.addItem(cbAines1.getItemAt(i));
             }
-            
-            
         } catch (Exception ex) {
             Logger.getLogger(DrunksterUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,12 +105,12 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        aines1 = new javax.swing.JComboBox<>();
-        aines2 = new javax.swing.JComboBox<>();
-        aines3 = new javax.swing.JComboBox<>();
-        aines4 = new javax.swing.JComboBox<>();
-        aines5 = new javax.swing.JComboBox<>();
+        btnPoistaDrinkki = new javax.swing.JButton();
+        cbAines1 = new javax.swing.JComboBox<>();
+        cbAines2 = new javax.swing.JComboBox<>();
+        cbAines3 = new javax.swing.JComboBox<>();
+        cbAines4 = new javax.swing.JComboBox<>();
+        cbAines5 = new javax.swing.JComboBox<>();
         virhe = new javax.swing.JLabel();
         textfieldDrinkinNimi = new javax.swing.JTextField();
         labelDrinkinNimi = new javax.swing.JLabel();
@@ -149,17 +149,22 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
 
         jLabel6.setText("Aines 5:");
 
-        jButton3.setText("Poista");
+        btnPoistaDrinkki.setText("Poista");
+        btnPoistaDrinkki.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPoistaDrinkkiActionPerformed(evt);
+            }
+        });
 
-        aines1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAines1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        aines2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAines2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        aines3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAines3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        aines4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAines4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        aines5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAines5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         virhe.setText("debug");
 
@@ -178,7 +183,6 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(virhe)
                             .addComponent(textfieldDrinkinNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelDrinkinNimi))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
@@ -190,11 +194,11 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(aines4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aines5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aines3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aines2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aines1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbAines4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAines5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAines3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAines2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAines1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(106, 106, 106))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -202,7 +206,7 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbPoistaDrinkki, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPoistaDrinkki, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonPeruuta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -212,7 +216,9 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                             .addComponent(btnlisääDrinkki, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(virhe))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -223,11 +229,11 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(aines1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbAines1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(aines2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbAines2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(labelDrinkinNimi)
@@ -236,21 +242,15 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(aines3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(aines4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(virhe)
-                        .addGap(3, 3, 3)))
+                    .addComponent(cbAines3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbAines4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(aines5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbAines5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,12 +259,14 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
                 .addComponent(btnlisääDrinkki)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPeruuta)
                     .addComponent(cbPoistaDrinkki, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addGap(12, 12, 12))
+                    .addComponent(btnPoistaDrinkki))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(virhe)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -276,37 +278,76 @@ public class frameLisaaDrinkki extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPeruutaActionPerformed
 
     private void btnlisääDrinkkiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlisääDrinkkiActionPerformed
-         String nimi = textfieldDrinkinNimi.getText(); 
-         String kuvaus = txtareaKuvaus.getText();
-         int a1 = aines1.getSelectedIndex();
-         int a2 = aines2.getSelectedIndex();
-         int a3 = aines3.getSelectedIndex();
-         int a4 = aines4.getSelectedIndex();
-         int a5 = aines5.getSelectedIndex();
-         
-         int lennimi = nimi.length();  
+        String nimi = textfieldDrinkinNimi.getText(); 
+        String kuvaus = txtareaKuvaus.getText();
         
-            if (lennimi>0){  
-                try{
-                    db.tallennaUusiDrinkki(virhe,nimi,a1,a2,a3,a4,a5,kuvaus);
-                    db.conn.close();
+        String aines1, aines2, aines3, aines4, aines5;
+
+        aines1 = cbAines1.getModel().getSelectedItem().toString();
+        aines2 = cbAines2.getModel().getSelectedItem().toString();
+        aines3 = cbAines3.getModel().getSelectedItem().toString();
+        aines4 = cbAines4.getModel().getSelectedItem().toString();
+        aines5 = cbAines5.getModel().getSelectedItem().toString();
+        
+        int lennimi = nimi.length(); 
+        
+        if (lennimi > 0 && lennimi < 31){
+            if(!aines1.equals("") && !aines2.equals("")){
+                if(aines3.equals("")){
+                    db.tallennaUusiDrinkki(virhe, nimi, aines1, aines2, kuvaus);
+                    try{
+                        db.conn.close();
+                    } catch (Exception e){
+                        virhe.setText(e.toString());
+                    }
+                    virhe.setText("Käytetään kahta");
+                } else if(aines4.equals("")){
+                    db.tallennaUusiDrinkki(virhe, nimi, aines1, aines2, aines3, kuvaus);
+                    try{
+                        db.conn.close();
+                    } catch (Exception e){
+                        virhe.setText(e.toString());
+                    }
+                    virhe.setText("Käytetään kolmea");
+                } else if(aines5.equals("")){
+                    db.tallennaUusiDrinkki(virhe, nimi, aines1, aines2, aines3, aines4, kuvaus);
+                    try{
+                        db.conn.close();
+                    } catch (Exception e){
+                        virhe.setText(e.toString());
+                    }
+                    virhe.setText("Käytetään neljää");
+                } else {
+                    db.tallennaUusiDrinkki(virhe, nimi, aines1, aines2, aines3, aines4, aines5, kuvaus);
+                    try{
+                        db.conn.close();
+                    } catch (Exception e){
+                        virhe.setText(e.toString());
+                    }
+                    virhe.setText("Käytetään viittä");
                 }
-                catch(Exception e){
-                    virhe.setText(e.toString());
-                }    
-      }
+            } else {
+                virhe.setText("Aines 1 ja 2 pitää olla valittu!");
+            }   
+        } else virhe.setText("Nimi oltava 1-30 merkin väliltä.");
     }//GEN-LAST:event_btnlisääDrinkkiActionPerformed
+
+    private void btnPoistaDrinkkiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPoistaDrinkkiActionPerformed
+        String nimi = cbPoistaDrinkki.getModel().getSelectedItem().toString();
+        db.poistaDrinkki(virhe, nimi);
+        setDrinkkiList(db.haeKaikkiDrinkit(virhe));
+    }//GEN-LAST:event_btnPoistaDrinkkiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> aines1;
-    private javax.swing.JComboBox<String> aines2;
-    private javax.swing.JComboBox<String> aines3;
-    private javax.swing.JComboBox<String> aines4;
-    private javax.swing.JComboBox<String> aines5;
+    private javax.swing.JButton btnPoistaDrinkki;
     private javax.swing.JButton btnlisääDrinkki;
+    private javax.swing.JComboBox<String> cbAines1;
+    private javax.swing.JComboBox<String> cbAines2;
+    private javax.swing.JComboBox<String> cbAines3;
+    private javax.swing.JComboBox<String> cbAines4;
+    private javax.swing.JComboBox<String> cbAines5;
     private javax.swing.JComboBox<String> cbPoistaDrinkki;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonPeruuta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

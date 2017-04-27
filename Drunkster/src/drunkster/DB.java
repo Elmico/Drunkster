@@ -241,28 +241,81 @@ public class DB {
             }
         }
        
-        public void tallennaUusiDrinkki(JLabel virhe, String nimi, int aines1, int aines2, int aines3, int aines4, int aines5, String kuvaus){
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi, String aines1, String aines2, String aines3, String aines4, String aines5, String kuvaus){
             luoYhteys(virhe);
              try{
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
                 pstmt.executeQuery();
                 pstmt = conn.prepareStatement("INSERT INTO drinkit(nimi, aines1, aines2, aines3, aines4, aines5, kuvaus) VALUES (?,?,?,?,?,?,?);");
                 pstmt.setString(1, nimi);
-                pstmt.setInt(2, aines1);
-                pstmt.setInt(3, aines2);
-                pstmt.setInt(4, aines3);
-                pstmt.setInt(5, aines4);
-                pstmt.setInt(6, aines5);
+                pstmt.setString(2, aines1);
+                pstmt.setString(3, aines2);
+                pstmt.setString(4, aines3);
+                pstmt.setString(5, aines4);
+                pstmt.setString(6, aines5);
                 pstmt.setString(7, kuvaus);
                 pstmt.executeUpdate();
                 conn.close();
             } catch (SQLException ex) {
-                //virhe.setText(ex.toString());
-            }
-           
+                virhe.setText(ex.toString());
+            }      
         }
         
-         public void poistaDrinkki(JLabel virhe, String nimi, int aines1, int aines2, int aines3, int aines4, int aines5, String kuvaus){
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi, String aines1, String aines2, String aines3, String aines4, String kuvaus){
+             luoYhteys(virhe);
+             try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("INSERT INTO drinkit(nimi, aines1, aines2, aines3, aines4, kuvaus) VALUES (?,?,?,?,?,?);");
+                pstmt.setString(1, nimi);
+                pstmt.setString(2, aines1);
+                pstmt.setString(3, aines2);
+                pstmt.setString(4, aines3);
+                pstmt.setString(5, aines4);
+                pstmt.setString(6, kuvaus);
+                pstmt.executeUpdate();
+                conn.close();
+            } catch (SQLException ex) {
+                virhe.setText(ex.toString());
+            }  
+        }
+        
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi, String aines1, String aines2, String aines3, String kuvaus){
+             luoYhteys(virhe);
+             try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("INSERT INTO drinkit(nimi, aines1, aines2, aines3, kuvaus) VALUES (?,?,?,?,?);");
+                pstmt.setString(1, nimi);
+                pstmt.setString(2, aines1);
+                pstmt.setString(3, aines2);
+                pstmt.setString(4, aines3);
+                pstmt.setString(5, kuvaus);
+                pstmt.executeUpdate();
+                conn.close();
+            } catch (SQLException ex) {
+                virhe.setText(ex.toString());
+            }  
+        }
+                
+        public void tallennaUusiDrinkki(JLabel virhe, String nimi, String aines1, String aines2, String kuvaus){
+            luoYhteys(virhe);
+            try{
+                PreparedStatement pstmt = conn.prepareStatement("use H8827;");
+                pstmt.executeQuery();
+                pstmt = conn.prepareStatement("INSERT INTO drinkit(nimi, aines1, aines2, kuvaus) VALUES (?,?,?,?);");
+                pstmt.setString(1, nimi);
+                pstmt.setString(2, aines1);
+                pstmt.setString(3, aines2);
+                pstmt.setString(4, kuvaus);
+                pstmt.executeUpdate();
+                conn.close();
+            } catch (SQLException ex) {
+                virhe.setText(ex.toString());
+            }  
+        }
+        
+         public void poistaDrinkki(JLabel virhe, String nimi){
              luoYhteys(virhe);
              try{
                 PreparedStatement pstmt = conn.prepareStatement("use H8827;");
@@ -273,7 +326,7 @@ public class DB {
                
             }
             catch(Exception ex){
-                //virhe.setText(ex.toString());
+                virhe.setText(ex.toString());
             }
         }
        
