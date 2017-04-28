@@ -1,2 +1,2 @@
 # Drunkster
-a Tool for drunks to see what drinks they can make from any materials that they might currently have left.
+A tool to see what drinks can be made from any materials that might be currently available.
